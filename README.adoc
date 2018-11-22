@@ -1,0 +1,57 @@
+= DIF instruction pseudocode
+
+This repository contains pseudocode descriptions of DTrace DIF instructions.
+The pseudocode is a Python subset that interacts with an object named `state`.
+For example, the `SETX` instruction is described as:
+
+[source, python]
+----
+def setx(state, rd, index):
+    state.registers[rd] = state.tables.integers[index]
+----
+
+By this description, the `SETX` instruction will load a value from the DTrace
+integer table, indexed by the `index` operand, and store it in a register
+specified by the value in `rd`.
+For example, `SETX 3 9` will load the integer at position 9 in the integer table
+into register `r3`.
+
+
+== Pseudocode semantics
+
+Informally, the semantics of these instructions are what you would expect from
+Python (e.g., assignment) but with the addition of interactions with a `state`
+object.
+This `state` "object" contains the following members:
+
+`registers`::
+DTrace registers are accessible via the `registers` field, which can be indexed
+by integer values.
+Register 0 always contains the value 0.
+In <<Simulation,simulation>>, it is an error to read from an uninitialized
+register.
+
+`tables`::
+Static tables named `integers` and `strings` (TODO).
+DTrace scripts can contain integer and string literals; these are exposed to
+instructions as static tables that can be indexed into.
+
+`memory`::
+TODO: memory to be loaded from
+
+`stack`::
+TODO: the DTrace "tuple registers", which are actually a bounded stack
+
+`variables`::
+TODO: global, thread-local and probe-local ("clause-local", though they're not)
+
+
+== Formal model
+
+TODO: translation from pseudocode into HOL
+
+
+== Simulation
+
+Instruction execution can be simulated with the
+https://github.com/cadets/dif-simulator[DIF Simulator].
