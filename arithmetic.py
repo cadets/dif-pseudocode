@@ -1,4 +1,4 @@
-def cmp(state, rs1, rs2, rd):
+def CMP(state, rs1, rs2, rd):
     x = state.registers[rs1]
     y = state.registers[rs2]
 

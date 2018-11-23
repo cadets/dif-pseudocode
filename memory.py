@@ -1,8 +1,8 @@
-def ldgs(state, imm, rd):
+def LDGS(state, imm, rd):
     state.registers[rd] = state.variables.globals[imm]
 
 
-def ldub(state, rs1, rs2, rd):
+def LDUB(state, rs1, rs2, rd):
     assert rs1 == 0
 
     addr = state.registers[rs1]

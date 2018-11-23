@@ -9,9 +9,9 @@ from .encodings import encodings
 # Mapping of instruction opcodes (text) to a pseudocode function and an encoding
 #
 instructions = {
-    'CMP': (arithmetic.cmp, 'R'),
-    'LDGS': (memory.ldgs, 'W'),
-    'LDUB': (memory.ldub, 'R'),
-    'MOV': (registers.mov, 'R'),
-    'SETX': (tables.setx, 'Index'),
+    'CMP': (arithmetic.CMP, 'R'),
+    'LDGS': (memory.LDGS, 'W'),
+    'LDUB': (memory.LDUB, 'R'),
+    'MOV': (registers.MOV, 'R'),
+    'SETX': (tables.SETX, 'Index'),
 }
