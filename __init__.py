@@ -2,24 +2,18 @@
 Top-level description of the DIF instruction set
 """
 
-from . import arithmetic, logical, memory, registers, tables
-from .encodings import encodings
+import importlib
+import inspect
 
 #
 # Mapping of instruction opcodes (text) to a pseudocode function and an encoding
 #
-instructions = {
-    'ADD': (arithmetic.ADD, 'R'),
-    'AND': (logical.AND, 'R'),
-    'CMP': (arithmetic.CMP, 'R'),
-    'LDGS': (memory.LDGS, 'W'),
-    'LDUB': (memory.LDUB, 'R'),
-    'MOV': (registers.MOV, 'R'),
-    'MUL': (arithmetic.MUL, 'R'),
-    'OR': (logical.OR, 'R'),
-    'SETX': (tables.SETX, 'Index'),
-    'SLL': (arithmetic.SLL, 'R'),
-    'SRL': (arithmetic.SRL, 'R'),
-    'SUB': (arithmetic.SUB, 'R'),
-    'XOR': (logical.XOR, 'R'),
-}
+instructions = {}
+
+for category in ['arithmetic', 'logical', 'memory', 'registers', 'tables']:
+    m = importlib.import_module('.' + category, 'instructions')
+    fns = [
+        (n, f) for (n, f) in inspect.getmembers(m) if inspect.isfunction(f)
+    ]
+
+    instructions.update(dict(fns))
