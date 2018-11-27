@@ -15,6 +15,18 @@ class encoding(object):
         return f
 
 
+def opcode(value):
+    """
+    Decorate a function with its opcode.
+    """
+
+    def decorate(func):
+        func.opcode = value
+        return func
+
+    return decorate
+
+
 #
 # DTrace has three encodings: B (branch), R (register) and W (wide, maybe?).
 #
