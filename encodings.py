@@ -6,13 +6,19 @@ class encoding(object):
     names. TODO: get fancier with bitwidths, etc.
     """
 
-    def __init__(self, name, operand_names):
+    def __init__(self, name, operands):
         self.name = name
-        self.operand_names = operand_names
+        self.operands = operands
 
     def __call__(self, f):
         f.encoding = self
         return f
+
+    def bit_widths(self):
+        return (width for (name, width) in self.operands)
+
+    def operand_names(self):
+        return (name for (name, width) in self.operands)
 
 
 def opcode(value):
@@ -30,9 +36,9 @@ def opcode(value):
 #
 # DTrace has three encodings: B (branch), R (register) and W (wide, maybe?).
 #
-B = encoding('B', ['label'])
-R = encoding('R', ['rs1', 'rs2', 'rd'])
-W = encoding('W', ['imm', 'rd'])
+B = encoding('B', [('label', 24)])
+R = encoding('R', [('rs1', 8), ('rs2', 8), ('rd', 8)])
+W = encoding('W', [('imm', 16), ('rd', 8)])
 
 # Er... and encoding four our of three is...
-Index = encoding('Index', ['rd', 'index'])
+Index = encoding('Index', [('rd', 8), ('index', 16)])
