@@ -1,6 +1,7 @@
 #
 # CMP: encoding R
 #
+@encodings.R
 def CMP(state, rs1, rs2, rd):
     x = state.registers[rs1]
     y = state.registers[rs2]
