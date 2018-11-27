@@ -1,0 +1,31 @@
+
+\clearpage
+\phantomsection
+
+\addcontentsline{toc}{subsection}{SRL}
+\label{insn:srl}
+\subsection*{SRL: Shift Right Logical}
+
+\subsubsection*{Format}
+\texttt{SRL rs1 rs2 rd}
+
+\begin{center}
+  \begin{bytefield}[endianness=big,bitformatting=\scriptsize]{32}
+    \bitheader{0,7,8,15,16,23,24,31}
+    \bitbox{8}{0x5}
+    \bitbox{8}{rs1}
+    \bitbox{8}{rs2}
+    \bitbox{8}{rd}
+  \end{bytefield}
+\end{center}
+\subsubsection*{Description}
+
+Shift the number in %rs1 right by the number of bits in %rs2.
+
+
+\subsubsection*{Pseudocode}
+
+\begin{lstlisting}[language=Python]
+def SRL(state, rs1, rs2, rd):
+    state.registers[rd] = state.registers[rs1] >> state.registers[rs2]
+\end{lstlisting}

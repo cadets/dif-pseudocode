@@ -1,0 +1,27 @@
+
+\clearpage
+\phantomsection
+
+\addcontentsline{toc}{subsection}{XOR}
+\label{insn:xor}
+\subsection*{XOR: Bitwise exclusive OR}
+
+\subsubsection*{Format}
+\texttt{XOR rs1 rs2 rd}
+
+\begin{center}
+  \begin{bytefield}[endianness=big,bitformatting=\scriptsize]{32}
+    \bitheader{0,7,8,15,16,23,24,31}
+    \bitbox{8}{0x2}
+    \bitbox{8}{rs1}
+    \bitbox{8}{rs2}
+    \bitbox{8}{rd}
+  \end{bytefield}
+\end{center}
+
+\subsubsection*{Pseudocode}
+
+\begin{lstlisting}[language=Python]
+def XOR(state, rs1, rs2, rd):
+    state.registers[rd] = state.registers[rs1] ^ state.registers[rs2]
+\end{lstlisting}

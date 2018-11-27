@@ -1,0 +1,33 @@
+
+\clearpage
+\phantomsection
+
+\addcontentsline{toc}{subsection}{CMP}
+\label{insn:cmp}
+\subsection*{CMP: CMP}
+
+\subsubsection*{Format}
+\texttt{CMP rs1 rs2 rd}
+
+\begin{center}
+  \begin{bytefield}[endianness=big,bitformatting=\scriptsize]{32}
+    \bitheader{0,7,8,15,16,23,24,31}
+    \bitbox{8}{0xe}
+    \bitbox{8}{rs1}
+    \bitbox{8}{rs2}
+    \bitbox{8}{rd}
+  \end{bytefield}
+\end{center}
+
+\subsubsection*{Pseudocode}
+
+\begin{lstlisting}[language=Python]
+def CMP(state, rs1, rs2, rd):
+    x = state.registers[rs1]
+    y = state.registers[rs2]
+
+    state.ccr = x - y
+    state.ccn = (state.ccr < 0)
+    state.ccz = (state.ccr == 0)
+    state.ccv = False
+\end{lstlisting}

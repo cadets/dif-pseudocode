@@ -1,0 +1,42 @@
+
+\clearpage
+\phantomsection
+
+\addcontentsline{toc}{subsection}{LDGS}
+\label{insn:ldgs}
+\subsection*{LDGS: Load a user defined variable.}
+
+\subsubsection*{Format}
+\texttt{LDGS imm rd}
+
+\begin{center}
+  \begin{bytefield}[endianness=big,bitformatting=\scriptsize]{32}
+    \bitheader{0,7,8,23,24,31}
+    \bitbox{8}{0x29}
+    \bitbox{16}{imm}
+    \bitbox{8}{rd}
+  \end{bytefield}
+\end{center}
+\subsubsection*{Description}
+
+The ldgs instruction has two modes of operation and is intended to be used
+only for scalar values. The first mode of operation is when the value provided
+in var is less than DIF_VAR_OTHER_UBASE. This will cause DTrace to look up a
+pre-defined scalar variable such as curthread, while the second mode of
+operation will result in looking up a user defined variable in a DIF program.
+The result of this instruction will be put into the register rd.  Unlike the
+ldga instruction, the var field is 16 bits long, as opposed to 8 bits due to
+the fact that the variable that is being loaded is a scalar and does not
+require indexing operations.
+
+Unlike the ldga instruction, the var field is 16 bits long, as opposed to 8
+bits due to the fact that the variable that is being loaded is a scalar and
+does not require indexing operations.
+
+
+\subsubsection*{Pseudocode}
+
+\begin{lstlisting}[language=Python]
+def LDGS(state, imm, rd):
+    state.registers[rd] = state.variables.globals[imm]
+\end{lstlisting}

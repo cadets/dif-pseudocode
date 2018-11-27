@@ -1,0 +1,35 @@
+
+\clearpage
+\phantomsection
+
+\addcontentsline{toc}{subsection}{LDUB}
+\label{insn:ldub}
+\subsection*{LDUB: Load Unsigned Byte.}
+
+\subsubsection*{Format}
+\texttt{LDUB rs1 rs2 rd}
+
+\begin{center}
+  \begin{bytefield}[endianness=big,bitformatting=\scriptsize]{32}
+    \bitheader{0,7,8,15,16,23,24,31}
+    \bitbox{8}{0x1f}
+    \bitbox{8}{rs1}
+    \bitbox{8}{rs2}
+    \bitbox{8}{rd}
+  \end{bytefield}
+\end{center}
+\subsubsection*{Description}
+
+Load the value pointed to by rs1 into rd. This is an unsigned instruction
+and will not perform sign extension.
+
+
+\subsubsection*{Pseudocode}
+
+\begin{lstlisting}[language=Python]
+def LDUB(state, rs1, rs2, rd):
+    assert rs1 == 0
+
+    addr = state.registers[rs1]
+    state.registers[rd] = state.mem.load(addr, 1)
+\end{lstlisting}

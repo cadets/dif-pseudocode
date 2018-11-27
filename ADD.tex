@@ -1,0 +1,31 @@
+
+\clearpage
+\phantomsection
+
+\addcontentsline{toc}{subsection}{ADD}
+\label{insn:add}
+\subsection*{ADD: Add two integers.}
+
+\subsubsection*{Format}
+\texttt{ADD rs1 rs2 rd}
+
+\begin{center}
+  \begin{bytefield}[endianness=big,bitformatting=\scriptsize]{32}
+    \bitheader{0,7,8,15,16,23,24,31}
+    \bitbox{8}{0x7}
+    \bitbox{8}{rs1}
+    \bitbox{8}{rs2}
+    \bitbox{8}{rd}
+  \end{bytefield}
+\end{center}
+\subsubsection*{Description}
+
+Add two numbers contained in registers and store them in a register.
+
+
+\subsubsection*{Pseudocode}
+
+\begin{lstlisting}[language=Python]
+def ADD(state, rs1, rs2, rd):
+    state.registers[rd] = state.registers[rs1] + state.registers[rs2]
+\end{lstlisting}
