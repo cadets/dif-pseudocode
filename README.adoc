@@ -1,0 +1,3 @@
+= DIF LaTeX output
+
+This repository contains LaTeX files generated from DTrace DIF pseudocode.
